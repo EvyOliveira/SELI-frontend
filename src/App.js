@@ -1,12 +1,6 @@
 import axios from "axios";
 import React from "react";
 
-function botao() { 
-  return (
-    <button onClick={carregarMedicos}>Salvar</button>
-  );
-}
-
 function cabecalho() { 
   return (
     <p>Bem vindo ao sistema</p>
@@ -23,12 +17,18 @@ class CorpoMedico extends React.Component {
 }
 
   render() {
+    const displayLista = [];
+
+    for (let i = 0; i < this.state.lista.length; i++) {
+      displayLista.push(
+      <p key={i}>{this.state.lista[i].nome} - {this.state.lista[i].especialidade}</p>
+      );
+    }
+
     return (
       <div>
         <p>Nome dos médicos</p>
-        <p>{this.state.lista[0].nome}</p>
-        <p>{this.state.lista[1].nome}</p>
-        <p>{this.state.lista[2].nome}</p>
+        {displayLista}
         {this.botaoAlterar()}
     </div>
     );
@@ -47,24 +47,23 @@ class CorpoMedico extends React.Component {
 
   botaoAlterar() { 
     return (
-      <button onClick={() => {this.alterarNomesMedicos()}}>Alterar</button>
+      <button onClick={() => {this.carregarMedicos()}}>Carregar</button>
     );
   }
-}
 
-
-function carregarMedicos() { 
-  axios.get(
-    `http://localhost:8080/SELI-backend/medico`,
-      {
-        responseType: 'json',
+  carregarMedicos() { 
+    axios.get(
+      `http://localhost:8080/tarde-aula1/medico`,
+        {
+          responseType: 'json',
+        }
+      ).then(
+      (response) => {
+        console.log(response.data);
       }
-    ).then(
-    (response) => {
-      console.log(response.data);
-    }
-  );
-  console.log("Medico acionado");
+    );
+    console.log("Medico acionado");
+  }
 }
 
 
@@ -73,7 +72,6 @@ function retornaPagina() {
     <div>
       {cabecalho()}
       <CorpoMedico/>
-      {botao()}
     </div>
   );
 }
