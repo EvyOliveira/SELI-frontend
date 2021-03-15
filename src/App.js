@@ -26,6 +26,13 @@ inputChange(campo, novoTexto) {
   this.setState(novoState);
 }
 
+adicionar() {
+  const novoState = {...this.state};
+  novoState.lista.push = ({...this.state.medicoAtual});
+  this.setState(novoState);
+
+}
+
   render() {
     const displayLista = [];
 
@@ -64,6 +71,7 @@ inputChange(campo, novoTexto) {
                   onChange={(novoTexto)=>{this.inputChange('especialidade', novoTexto.target.value)}}/>                           
         </div>
         
+        <button onClick={()=>{this.adicionar()}}>Adicionar</button>
         <p>Médicos Cadastrados</p>
         {displayLista}
         {this.botaoAlterar()}
