@@ -35,10 +35,14 @@ class CorpoMedico extends React.Component {
   }
 
   alterarNomesMedicos() {
-    console.log(this.state.lista[0].nome);
-    this.state.lista[0].nome = "Dr. Dolitle";
-    this.setState(this.state);
-    console.log(this.state.lista[0].nome);
+    // const novoState = {};
+    // novoState.lista = this.state.lista;
+    // const novoState = Object.assign({}, this.state);
+
+    const novoState = {...this.state};
+
+    novoState.lista[0].nome = "Dr. Dolitle";
+    this.setState(novoState);
   }
 
   botaoAlterar() { 
