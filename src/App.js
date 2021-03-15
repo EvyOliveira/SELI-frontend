@@ -26,11 +26,23 @@ inputChange(campo, novoTexto) {
   this.setState(novoState);
 }
 
-adicionar() {
-  const novoState = {...this.state};
-  novoState.lista.push = ({...this.state.medicoAtual});
-  this.setState(novoState);
+// adicionar() {
+  // const novoState = {...this.state};
+  // novoState.lista.push = ({...this.state.medicoAtual});
+  // this.setState(novoState);
 
+//}
+
+adicionar(){
+  const apiUrl = `http://localhost:8080/tarde-aula1/medico`;
+  fetch(apiUrl, {
+    method: 'POST',
+    headers: {
+      Accept: 'text/plain',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(this.state.medicoAtual)
+  });
 }
 
   render() {
