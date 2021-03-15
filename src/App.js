@@ -10,9 +10,7 @@ function cabecalho() {
 class CorpoMedico extends React.Component {
    state = {
      lista: [
-    {id: 0, crm: "0001", nome: "Dr. Takagima", especialidade:"Cardiologista"},
-    {id: 0, crm: "0002", nome:"Dr. Pimentel", especialidade: "Ginecologista"},
-    {id: 0, crm: "0003", nome: "Dr. Ronaldo", especialidade: "Clínico Geral"}
+
   ]
 }
 
@@ -59,7 +57,9 @@ class CorpoMedico extends React.Component {
         }
       ).then(
       (response) => {
-        console.log(response.data);
+        const novoState = {...this.state};
+        novoState.lista = response.data;
+        this.setState(novoState);
       }
     );
     console.log("Medico acionado");
