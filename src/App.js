@@ -1,26 +1,10 @@
 import axios from "axios";
-
-const lista = [
-  {id: 0, crm: "0001", nome: "Dr. Takagima", especialidade:"Cardiologista"},
-  {id: 0, crm: "0002", nome:"Dr. Pimentel", especialidade: "Ginecologista"},
-  {id: 0, crm: "0003", nome: "Dr. Ronaldo", especialidade: "Clínico Geral"}
-]
+import React from "react";
 
 function botao() { 
   return (
     <button onClick={carregarMedicos}>Salvar</button>
   );
-}
-
-function botaoAlterar() { 
-  return (
-    <button onClick={alterarNomesMedicos}>Alterar</button>
-  );
-}
-
-function alterarNomesMedicos() {
-  lista[0].nome = "Dr. Dolitle"
-  console.log(lista)
 }
 
 function cabecalho() { 
@@ -29,15 +13,36 @@ function cabecalho() {
   );
 }
 
-function corpo(){
-  return (
-    <div>
-      <p>Nome dos médicos</p>
-      <p>{lista[0].nome}</p>
-      <p>{lista[1].nome}</p>
-      <p>{lista[2].nome}</p>
+class CorpoMedico extends React.Component {
+   lista = [
+    {id: 0, crm: "0001", nome: "Dr. Takagima", especialidade:"Cardiologista"},
+    {id: 0, crm: "0002", nome:"Dr. Pimentel", especialidade: "Ginecologista"},
+    {id: 0, crm: "0003", nome: "Dr. Ronaldo", especialidade: "Clínico Geral"}
+  ]
+
+  render() {
+    return (
+      <div>
+        <p>Nome dos médicos</p>
+        <p>{this.lista[0].nome}</p>
+        <p>{this.lista[1].nome}</p>
+        <p>{this.lista[2].nome}</p>
+        {this.botaoAlterar()}
     </div>
-  );
+    );
+  }
+
+  alterarNomesMedicos() {
+    console.log(this.lista[0].nome)
+    this.lista[0].nome = "Dr. Dolitle"
+    console.log(this.lista[0].nome)
+  }
+
+  botaoAlterar() { 
+    return (
+      <button onClick={() => {this.alterarNomesMedicos()}}>Alterar</button>
+    );
+  }
 }
 
 
@@ -60,9 +65,8 @@ function retornaPagina() {
   return (
     <div>
       {cabecalho()}
-      {corpo()}
+      <CorpoMedico/>
       {botao()}
-      {botaoAlterar()}
     </div>
   );
 }
