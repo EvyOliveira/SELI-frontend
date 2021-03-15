@@ -38,23 +38,34 @@ inputChange(novoTexto) {
     return (
       <div>
         <p>Dados do Médico</p>
-        <input type="text" 
-                value={this.state.medicoAtual.crm} 
-                placeholder="Digite o CRM do médico">
-                onChange={(novoTexto)=>{this.inputChange("crm", novoTexto.target.value)}}</input>
-        <input type="text" 
-                value={this.state.medicoAtual.nome} 
-                placeholder="Digite o nome do médico">
-                onChange={(novoTexto)=>{this.inputChange("nome", novoTexto.target.value)}}</input>
-        <input type="text" 
-                value={this.state.medicoAtual.especialidade} 
-                placeholder="Digite o especialidade do médico">
-                onChange={(novoTexto)=>{this.inputChange("especialidade", novoTexto.target.value)}}</input>
+        <div className="form-group">
+          <label>CRM: </label>
+          <input  type="text" value={this.state.medicoAtual.crm} 
+                  placeholder="Digite o CRM do medico"
+                  className="form-control"
+                  onChange={(novoTexto)=>{this.inputChange('crm', novoTexto.target.value)}}/>
+          
+        </div>
+        <div className="form-group">
+          <label>Nome: </label>
+          <input  type="text" value={this.state.medicoAtual.nome} 
+                  placeholder="Digite o nome do medico"
+                  className="form-control"
+                  onChange={(novoTexto)=>{this.inputChange('nome', novoTexto.target.value)}}/>
+        </div>
+        <div className="form-group">
+          <label>Especialidade: </label>
+          <input  type="text" value={this.state.medicoAtual.especialidade} 
+                  placeholder="Digite a especialidade do medico"
+                  className="form-control"
+                  onChange={(novoTexto)=>{this.inputChange('especialidade', novoTexto.target.value)}}/>                           
+        </div>
+      </div>
         
         <p>Médicos Cadastrados</p>
         {displayLista}
         {this.botaoAlterar()}
-    </div>
+
     );
   }
 
