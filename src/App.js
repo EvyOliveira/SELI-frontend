@@ -9,9 +9,21 @@ function cabecalho() {
 
 class CorpoMedico extends React.Component {
    state = {
+     medicoAtual: {
+      nome: "",
+      crm: "",
+      especialidade: ""
+     },
+     nomeMedico: "João Silva",
      lista: [
 
   ]
+}
+
+inputChange(novoTexto) {
+  const novoState = {...this.state};
+  novoState.medicoAtual.nome = novoTexto;
+  this.setState(novoState);
 }
 
   render() {
@@ -25,7 +37,21 @@ class CorpoMedico extends React.Component {
 
     return (
       <div>
-        <p>Nome dos médicos</p>
+        <p>Dados do Médico</p>
+        <input type="text" 
+                value={this.state.medicoAtual.crm} 
+                placeholder="Digite o CRM do médico">
+                onChange={(novoTexto)=>{this.inputChange("crm", novoTexto.target.value)}}</input>
+        <input type="text" 
+                value={this.state.medicoAtual.nome} 
+                placeholder="Digite o nome do médico">
+                onChange={(novoTexto)=>{this.inputChange("nome", novoTexto.target.value)}}</input>
+        <input type="text" 
+                value={this.state.medicoAtual.especialidade} 
+                placeholder="Digite o especialidade do médico">
+                onChange={(novoTexto)=>{this.inputChange("especialidade", novoTexto.target.value)}}</input>
+        
+        <p>Médicos Cadastrados</p>
         {displayLista}
         {this.botaoAlterar()}
     </div>
