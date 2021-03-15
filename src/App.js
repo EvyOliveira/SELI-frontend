@@ -20,9 +20,9 @@ class CorpoMedico extends React.Component {
   ]
 }
 
-inputChange(novoTexto) {
+inputChange(campo, novoTexto) {
   const novoState = {...this.state};
-  novoState.medicoAtual.nome = novoTexto;
+  novoState.medicoAtual[campo] = novoTexto;
   this.setState(novoState);
 }
 
@@ -40,7 +40,8 @@ inputChange(novoTexto) {
         <p>Dados do Médico</p>
         <div className="form-group">
           <label>CRM: </label>
-          <input  type="text" value={this.state.medicoAtual.crm} 
+          <input  type="text" 
+                  value={this.state.medicoAtual.crm} 
                   placeholder="Digite o CRM do medico"
                   className="form-control"
                   onChange={(novoTexto)=>{this.inputChange('crm', novoTexto.target.value)}}/>
@@ -48,23 +49,25 @@ inputChange(novoTexto) {
         </div>
         <div className="form-group">
           <label>Nome: </label>
-          <input  type="text" value={this.state.medicoAtual.nome} 
+          <input  type="text" 
+                  value={this.state.medicoAtual.nome} 
                   placeholder="Digite o nome do medico"
                   className="form-control"
                   onChange={(novoTexto)=>{this.inputChange('nome', novoTexto.target.value)}}/>
         </div>
         <div className="form-group">
           <label>Especialidade: </label>
-          <input  type="text" value={this.state.medicoAtual.especialidade} 
+          <input  type="text" 
+                  value={this.state.medicoAtual.especialidade} 
                   placeholder="Digite a especialidade do medico"
                   className="form-control"
                   onChange={(novoTexto)=>{this.inputChange('especialidade', novoTexto.target.value)}}/>                           
         </div>
-      </div>
         
         <p>Médicos Cadastrados</p>
         {displayLista}
         {this.botaoAlterar()}
+      </div>
 
     );
   }
