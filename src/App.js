@@ -12,6 +12,17 @@ function botao() {
   );
 }
 
+function botaoAlterar() { 
+  return (
+    <button onClick={alterarNomesMedicos}>Alterar</button>
+  );
+}
+
+function alterarNomesMedicos() {
+  lista[0].nome = "Dr. Dolitle"
+  console.log(lista)
+}
+
 function cabecalho() { 
   return (
     <p>Bem vindo ao sistema</p>
@@ -20,7 +31,12 @@ function cabecalho() {
 
 function corpo(){
   return (
-    <p>Nome dos médicos</p>
+    <div>
+      <p>Nome dos médicos</p>
+      <p>{lista[0].nome}</p>
+      <p>{lista[1].nome}</p>
+      <p>{lista[2].nome}</p>
+    </div>
   );
 }
 
@@ -46,6 +62,7 @@ function retornaPagina() {
       {cabecalho()}
       {corpo()}
       {botao()}
+      {botaoAlterar()}
     </div>
   );
 }
