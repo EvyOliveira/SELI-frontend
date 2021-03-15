@@ -14,28 +14,31 @@ function cabecalho() {
 }
 
 class CorpoMedico extends React.Component {
-   lista = [
+   state = {
+     lista: [
     {id: 0, crm: "0001", nome: "Dr. Takagima", especialidade:"Cardiologista"},
     {id: 0, crm: "0002", nome:"Dr. Pimentel", especialidade: "Ginecologista"},
     {id: 0, crm: "0003", nome: "Dr. Ronaldo", especialidade: "Clínico Geral"}
   ]
+}
 
   render() {
     return (
       <div>
         <p>Nome dos médicos</p>
-        <p>{this.lista[0].nome}</p>
-        <p>{this.lista[1].nome}</p>
-        <p>{this.lista[2].nome}</p>
+        <p>{this.state.lista[0].nome}</p>
+        <p>{this.state.lista[1].nome}</p>
+        <p>{this.state.lista[2].nome}</p>
         {this.botaoAlterar()}
     </div>
     );
   }
 
   alterarNomesMedicos() {
-    console.log(this.lista[0].nome)
-    this.lista[0].nome = "Dr. Dolitle"
-    console.log(this.lista[0].nome)
+    console.log(this.state.lista[0].nome);
+    this.state.lista[0].nome = "Dr. Dolitle";
+    this.setState(this.state);
+    console.log(this.state.lista[0].nome);
   }
 
   botaoAlterar() { 
