@@ -1,8 +1,14 @@
 import axios from "axios";
 
+const lista = [
+  {id: 0, crm: "0001", nome: "Dr. Takagima", especialidade:"Cardiologista"},
+  {id: 0, crm: "0002", nome:"Dr. Pimentel", especialidade: "Ginecologista"},
+  {id: 0, crm: "0003", nome: "Dr. Ronaldo", especialidade: "Clínico Geral"}
+]
+
 function botao() { 
   return (
-    <button onClick={medicos}>Salvar</button>
+    <button onClick={carregarMedicos}>Salvar</button>
   );
 }
 
@@ -12,10 +18,16 @@ function cabecalho() {
   );
 }
 
+function corpo(){
+  return (
+    <p>Nome dos médicos</p>
+  );
+}
 
-function medicos() { 
+
+function carregarMedicos() { 
   axios.get(
-    `http://localhost:8080/tarde-aula1/medico`,
+    `http://localhost:8080/SELI-backend/medico`,
       {
         responseType: 'json',
       }
@@ -32,7 +44,7 @@ function retornaPagina() {
   return (
     <div>
       {cabecalho()}
-      <p>Paragrafo 1</p>
+      {corpo()}
       {botao()}
     </div>
   );
