@@ -14,10 +14,7 @@ class CorpoMedico extends React.Component {
       crm: "",
       especialidade: ""
      },
-     nomeMedico: "João Silva",
-     lista: [
-
-  ]
+     lista: [] 
 }
 
 inputChange(campo, novoTexto) {
@@ -33,16 +30,21 @@ inputChange(campo, novoTexto) {
 
 //}
 
-adicionar(){
+adicionar() { 
   const apiUrl = `http://localhost:8080/tarde-aula1/medico`;
-  fetch(apiUrl, {
-    method: 'POST',
-    headers: {
-      Accept: 'text/plain',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(this.state.medicoAtual)
-  });
+      fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          Accept: 'text/plain',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(this.state.medicoAtual)
+      }).then(
+        (response)=> {
+          console.log(response.body);
+          this.carregarMedicos();
+        }
+      );
 }
 
   render() {
@@ -50,9 +52,12 @@ adicionar(){
 
     for (let i = 0; i < this.state.lista.length; i++) {
       displayLista.push(
-      <p key={i}>{this.state.lista[i].nome} - {this.state.lista[i].especialidade}</p>
-      );
-    }
+        <tr key={i}>
+          <td>{this.state.lista[i].crm}</td>
+          <td>{this.state.lista[i].nome}</td>
+          <td>{this.state.lista[i].especialidade}</td>
+        </tr>);
+    } 
 
     return (
       <div>
@@ -82,13 +87,22 @@ adicionar(){
                   className="form-control"
                   onChange={(novoTexto)=>{this.inputChange('especialidade', novoTexto.target.value)}}/>                           
         </div>
-        
-        <button onClick={()=>{this.adicionar()}}>Adicionar</button>
+        <button className="btn btn-primary" onClick={()=>{this.adicionar()}}>Adicionar</button>
         <p>Médicos Cadastrados</p>
-        {displayLista}
-        {this.botaoAlterar()}
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              <th>CRM</th>
+              <th>Nome</th>
+              <th>Especialidade</th>
+            </tr>
+          </thead>
+          <tbody>
+            {displayLista}
+          </tbody>
+        </table>
+        <button className="btn btn-primary" onClick={() => {this.carregarMedicos()}}>Recarregar Medicos</button>
       </div>
-
     );
   }
 
@@ -98,16 +112,15 @@ adicionar(){
     // const novoState = Object.assign({}, this.state);
 
     const novoState = {...this.state};
-
     novoState.lista[0].nome = "Dr. Dolitle";
     this.setState(novoState);
   }
 
-  botaoAlterar() { 
-    return (
-      <button onClick={() => {this.carregarMedicos()}}>Carregar</button>
-    );
-  }
+  // botaoAlterar() { 
+    // return (
+      // <button onClick={() => {this.carregarMedicos()}}>Recarregar Médicos</button>
+   // );
+  // }
 
   carregarMedicos() { 
     axios.get(
@@ -129,7 +142,7 @@ adicionar(){
 
 function retornaPagina() { 
   return (
-    <div>
+    <div className="container">
       {cabecalho()}
       <CorpoMedico/>
     </div>
