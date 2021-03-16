@@ -1,139 +1,134 @@
 import axios from "axios";
 import React from "react";
 
+/*function botao() { 
+  return (
+    <button onClick={carregarMedicos}>Salvar</button>
+  );
+} */
+
 function cabecalho() { 
   return (
-    <p>Bem-vindo ao Sistema de Pets!</p>
+    <p>Bem-vindo ao sistema de Pets!</p>
   );
 }
 
-class CorpoAnimal extends React.Component {
-   state = {
-     petAtual: {
-      nome: "",
-      idPet: "",
-      especie: "",
-      raca: ""
-     },
-     lista: [] 
-}
+class CorpoPets extends React.Component { 
+  state = {
+    petAtual: {
+      nome : "",
+      raca: "",
+      especie: ""
+    },
+    lista: [
+    ],
+  }
 
-inputChange(campo, novoTexto) {
-  const novoState = {...this.state};
-  novoState.petAtual[campo] = novoTexto;
-  this.setState(novoState);
-}
+  inputChange(campo, novoTexto){
+    const novoState = {...this.state};
+    novoState.petAtual[campo] = novoTexto;
+    this.setState(novoState);
+    //console.log(novoTexto);
+  }
+  /*adicionar(){
+    const novoState = {...this.state};
+    novoState.lista.push({...this.state.petAtual});
+    this.setState(novoState);   }*/
 
-// adicionar() {
-  // const novoState = {...this.state};
-  // novoState.lista.push = ({...this.state.petAtual});
-  // this.setState(novoState);
+  adicionar(){
+    const apiUrl = `http://localhost:8080/tarde-aula1/pets`;
+          fetch(apiUrl,{
+            method: 'POST',
+            headers:{
+              Accept:'text/plain',
+              'Content-Type':'application/json'
+            },
+            body: JSON.stringify(this.state.petAtual)
+          }).then(
+            (response)=>{
+              console.log(response.body);
+              this.carregarPets();
+            }
+          );
+  }
 
-//}
-
-adicionar() { 
-  const apiUrl = `http://localhost:8080/tarde-aula1/medico`;
-      fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          Accept: 'text/plain',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(this.state.petAtual)
-      }).then(
-        (response)=> {
-          console.log(response.body);
-          this.carregarAnimais();
-        }
-      );
-}
-
-  render() {
+  render() { 
     const displayLista = [];
 
-    for (let i = 0; i < this.state.lista.length; i++) {
+    for(let i = 0; i <this.state.lista.length;i++){
       displayLista.push(
-        <tr key={i}>
-          <td>{this.state.lista[i].idPet}</td>
-          <td>{this.state.lista[i].nome}</td>
+        <tr key ={i}>
+          <td>{this.state.lista[i].raca} </td>
+          <td>{this.state.lista[i].nome} </td>
           <td>{this.state.lista[i].especie}</td>
-          <td>{this.state.lista[i].raca}</td>
-        </tr>);
-    } 
+        </tr>
+      );
+    }
 
     return (
       <div>
-        <p>Dados do Animal</p>
-        <div className="form-group">
-          <label>Id:</label>
-          <input  type="text" 
-                  value={this.state.petAtual.idPet} 
-                  placeholder="Digite o idPet do animal"
-                  className="form-control"
-                  onChange={(novoTexto)=>{this.inputChange('idPet', novoTexto.target.value)}}/>
-          
-        </div>
+        <p>Dados do animal</p>
         <div className="form-group">
           <label>Nome:</label>
-          <input  type="text" 
-                  value={this.state.petAtual.nome} 
-                  placeholder="Digite o nome do animal"
-                  className="form-control"
-                  onChange={(novoTexto)=>{this.inputChange('nome', novoTexto.target.value)}}/>
-        </div>
-        <div className="form-group">
+            <input type="TEXT" 
+              value={this.state.petAtual.nome} 
+              placeholder="Insira o nome do animal"
+              className="form-control"
+              onChange={(novoTexto)=>{ this.inputChange('nome',novoTexto.target.value)}}/>
+          </div>
+          <div className="form-group">
+            <label>Raça:</label>
+            <input type="TEXT" 
+              value={this.state.petAtual.raca} 
+              placeholder="Insira a raça do animal"
+              className="form-control"
+              onChange={(novoTexto)=>{ this.inputChange('raca',novoTexto.target.value)}}/>
+          </div>
+          <div className="form-group">
           <label>Espécie:</label>
-          <input  type="text" 
-                  value={this.state.petAtual.especie} 
-                  placeholder="Digite a espécie do animal"
-                  className="form-control"
-                  onChange={(novoTexto)=>{this.inputChange('especie', novoTexto.target.value)}}/>                           
-        </div>
-        <div className="form-group">
-          <label>Raça:</label>
-          <input  type="text" 
-                  value={this.state.petAtual.raca} 
-                  placeholder="Digite a raça do animal"
-                  className="form-control"
-                  onChange={(novoTexto)=>{this.inputChange('raca', novoTexto.target.value)}}/>                           
-        </div>
+            <input type="TEXT" 
+              value={this.state.petAtual.especie} 
+              placeholder="Insira a espécie do animal"
+              className="form-control"
+              onChange={(novoTexto)=>{ this.inputChange('especie',novoTexto.target.value)}}/>
+          </div>
         <button className="btn btn-primary" onClick={()=>{this.adicionar()}}>Adicionar</button>
-        <p>Animais Cadastrados</p>
+        <p>Aninais Cadastrados</p>
         <table className="table table-striped">
           <thead>
             <tr>
-              <th>Id</th>
-              <th>Nome</th>
-              <th>Espécie</th>
-              <th>Raça</th>
+              <th>Nome:</th>
+              <th>Raça:</th>
+              <th>Espécie:</th>
             </tr>
           </thead>
           <tbody>
             {displayLista}
           </tbody>
         </table>
-        <button className="btn btn-primary" onClick={() => {this.carregarAnimais()}}>Recarregar Animais</button>
+        {this.botaoAlterar()}
       </div>
     );
   }
 
-  alterarNomesAnimais() {
+  alterarNomesPets() { 
     // const novoState = {};
     // novoState.lista = this.state.lista;
+    
     // const novoState = Object.assign({}, this.state);
-
+    
     const novoState = {...this.state};
-    novoState.lista[0].nome = "Alex George";
+    novoState.lista[0].nome = "Exemplo";
     this.setState(novoState);
   }
 
-  // botaoAlterar() { 
-    // return (
-      // <button onClick={() => {this.carregarAnimais()}}>Recarregar Médicos</button>
-   // );
-  // }
+  botaoAlterar() { 
+    return (
+      <button className="btn btn-primary" onClick={() => {this.carregarPets()}}>Recarregar Animais</button>
+    );
+  } 
 
-  carregarAnimais() { 
+  carregarPets() { 
     axios.get(
       `http://localhost:8080/tarde-aula1/pets`,
         {
@@ -146,19 +141,18 @@ adicionar() {
         this.setState(novoState);
       }
     );
-    console.log("Animal acionado.");
+    console.log("Animais Carregados.");
   }
+
 }
 
-
-function renderizarComponentes() { 
+function retornarComponentes() { 
   return (
     <div className="container">
       {cabecalho()}
-      <CorpoAnimal/>
+      <CorpoPets/>
     </div>
   );
 }
 
-
-export default renderizarComponentes;
+export default retornarComponentes;
