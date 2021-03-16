@@ -135,7 +135,7 @@ adicionar() {
 
   carregarAnimais() { 
     axios.get(
-      `http://localhost:8080/tarde-aula1/medico`,
+      `http://localhost:8080/tarde-aula1/pets`,
         {
           responseType: 'json',
         }
